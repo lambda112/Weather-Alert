@@ -12,16 +12,12 @@ weather_dict = {}
 for index, data in enumerate(weather_data):
     weather_dict[index] = data
 
-def find_weather(time: int) -> list:
-    time = time // 3
-    return weather_dict[time]
-
 for key, val in weather_dict.items():
     info = val["weather"][0]
     time = val["dt_txt"]
     code = info["id"]
     weather = info["main"]
     detailed_weather = info["description"]
-    is_umbrella = "Bring an Umbrella!" if code < 700 else "Dont Need Umbrella!"
+    is_umbrella = "Bring an Umbrella!" if int(code) < 700 else "Dont Need Umbrella!"
 
     print(f"{time=}, {code=}, {weather=}, {detailed_weather=}, {is_umbrella}")
