@@ -3,7 +3,7 @@ import os
 from twilio.rest import Client
 
 # Get Information From Website
-api_key = "c6ba93a799a5f2fca3a6b1f2e232520b"
+api_key = os.environ.get("api_key")
 response = r.get("https://api.openweathermap.org/data/2.5/forecast", params={"lat":53.537980, "lon":-2.092610, "appid": api_key, "cnt":7})
 response.raise_for_status()
 
@@ -26,14 +26,14 @@ for key, val in weather_dict.items():
     weather_information.append(f"{time=}, {code=}, {weather=}, {detailed_weather=}, {is_umbrella}")
 
 message_content = "\n\n".join(weather_information)
-account_sid = "AC02e03f4957ae0746b325950da2aad98c"
-auth_token = "925f0ac139caa08c93fad7bbf3c6243a"
+account_sid = os.environ.get("account_sid")
+auth_token = os.environ.get("auth_token")
 client = Client(account_sid, auth_token)
 
 message = client.messages.create(
     body=message_content,
-    from_="whatsapp:+14155238886",
-    to="whatsapp:+447547273613",
+    from_= os.environ.get("from_"),
+    to= os.environ.get("to"),
 )
 
 print(message.status)
